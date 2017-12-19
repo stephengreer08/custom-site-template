@@ -36,7 +36,7 @@ define( 'WP_DEBUG_DISPLAY', false );
 define( 'WP_DEBUG_LOG', true );
 define( 'SCRIPT_DEBUG', true );
 define( 'JETPACK_DEV_DEBUG', true );
-if ( isset( $_SERVER['HTTP_HOST'] ) && preg_match('/^(fansidedblogs.test.)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(.xip.io)\z/', $_SERVER['HTTP_HOST'] ) ) {
+if ( isset( $_SERVER['HTTP_HOST'] ) && preg_match('/^(${DOMAIN}.)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(.xip.io)\z/', $_SERVER['HTTP_HOST'] ) ) {
   define( 'WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] );
   define( 'WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST'] );
 }
@@ -44,7 +44,6 @@ if ( isset( $_SERVER['HTTP_HOST'] ) && preg_match('/^(fansidedblogs.test.)\d{1,3
 define( 'WP_ALLOW_MULTISITE', true );
 define( 'MULTISITE', true );
 define( 'SUBDOMAIN_INSTALL', true );
-$base = '/';
 define( 'DOMAIN_CURRENT_SITE', '${DOMAIN}' );
 define( 'PATH_CURRENT_SITE', '/' );
 define( 'SITE_ID_CURRENT_SITE', 1 );
