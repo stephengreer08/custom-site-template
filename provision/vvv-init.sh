@@ -26,15 +26,16 @@ if [[ ! -f "${VVV_PATH_TO_SITE}/htdocs/wp-load.php" ]]; then
   noroot wp core download --version="${WP_VERSION}"
 fi
 
+cp -f "${VVV_PATH_TO_SITE}/provision/sunrise.php" "${VVV_PATH_TO_SITE}/htdocs/wp-content/sunrise.php"
+
 if [[ ! -f "${VVV_PATH_TO_SITE}/htdocs/wp-config.php" ]]; then
   echo "Configuring WordPress Stable..."
   noroot wp core config --dbname="${DB_NAME}" --dbuser=wp --dbpass=wp --quiet --extra-php <<PHP
 define( 'SUNRISE',true );
-define( 'FS_DEVELOPER_KEY','localdev' );
-
+define( 'FS_DEVELOPER_KEY', 'localdev' );
 /*Getty API Credentials*/
-// define( 'GETTY_API_KEY','' );
-// define( 'GETTY_CLIENT_SECRET','' );
+// define( 'GETTY_API_KEY', '' );
+// define( 'GETTY_CLIENT_SECRET', '' );
 /*WP RestRest cache constants*/
 // Use the content types to specify what types of content the rest cache will actually store/save
 //define( 'WRC_CONTENT_TYPES', array( 'application/json', 'text/xml' ) );
