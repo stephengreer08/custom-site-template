@@ -49,7 +49,6 @@ define( 'PATH_CURRENT_SITE', '/' );
 define( 'SITE_ID_CURRENT_SITE', 1 );
 define( 'BLOG_ID_CURRENT_SITE', 1 );
 
-define( 'FSAPI_SECRET_KEY', 'fslocaldevsecretkey' );
 define( 'SUNRISE',true );
 define( 'FS_DEVELOPER_KEY', 'localdev' );
 /*Getty API Credentials*/
