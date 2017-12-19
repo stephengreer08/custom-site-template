@@ -9,6 +9,8 @@ mysql -u root --password=root -e "CREATE DATABASE IF NOT EXISTS ${VVV_SITE_NAME}
 mysql -u root --password=root -e "GRANT ALL PRIVILEGES ON ${VVV_SITE_NAME}.* TO wp@localhost IDENTIFIED BY 'wp';"
 echo -e "\n DB operations done.\n\n"
 
+echo -e "${VVV_PATH_TO_SITE}"
+
 # Nginx Logs
 mkdir -p ${VVV_PATH_TO_SITE}/log
 touch ${VVV_PATH_TO_SITE}/log/error.log
