@@ -30,7 +30,27 @@ cp -f "${VVV_PATH_TO_SITE}/provision/sunrise.php" "${VVV_PATH_TO_SITE}/htdocs/wp
 
 if [[ ! -f "${VVV_PATH_TO_SITE}/htdocs/wp-config.php" ]]; then
   echo "Configuring WordPress Stable..."
-  noroot wp core config --dbname="${DB_NAME}" --dbuser=wp --dbpass=wp --quiet --extra-php <<PHP
+  noroot wp config create --dbname="${DB_NAME}" --dbuser=wp --dbpass=wp --quiet --extra-php <<PHP
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_DISPLAY', false );
+define( 'WP_DEBUG_LOG', true );
+define( 'SCRIPT_DEBUG', true );
+define( 'JETPACK_DEV_DEBUG', true );
+if ( isset( $_SERVER['HTTP_HOST'] ) && preg_match('/^(fansidedblogs.test.)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(.xip.io)\z/', $_SERVER['HTTP_HOST'] ) ) {
+  define( 'WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] );
+  define( 'WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST'] );
+}
+
+define( 'WP_ALLOW_MULTISITE', true );
+define( 'MULTISITE', true );
+define( 'SUBDOMAIN_INSTALL', true );
+$base = '/';
+define( 'DOMAIN_CURRENT_SITE', '${DOMAIN}' );
+define( 'PATH_CURRENT_SITE', '/' );
+define( 'SITE_ID_CURRENT_SITE', 1 );
+define( 'BLOG_ID_CURRENT_SITE', 1 );
+
+define( 'FSAPI_SECRET_KEY', 'fslocaldevsecretkey' );
 define( 'SUNRISE',true );
 define( 'FS_DEVELOPER_KEY', 'localdev' );
 /*Getty API Credentials*/
@@ -40,7 +60,7 @@ define( 'FS_DEVELOPER_KEY', 'localdev' );
 // Use the content types to specify what types of content the rest cache will actually store/save
 //define( 'WRC_CONTENT_TYPES', array( 'application/json', 'text/xml' ) );
 // secret key for FanSided WP API plugin server to server authentication
-define('FSAPI_SECRET_KEY', 'fslocaldevsecretkey');
+define( 'FSAPI_SECRET_KEY', 'fslocaldevsecretkey' );
 PHP
 fi
 
