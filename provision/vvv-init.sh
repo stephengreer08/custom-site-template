@@ -64,7 +64,7 @@ fi
 
 if $(noroot wp core is-installed); then
   echo "Importing Database..."
-  unzip "${VVV_PATH_TO_SITE}/provision/fansidedblogs-test.sql.zip"
+  unzip "${VVV_PATH_TO_SITE}/provision/fansidedblogs-test.sql.zip" -d "${VVV_PATH_TO_SITE}/provision"
   noroot wp db import "${VVV_PATH_TO_SITE}/provision/fansidedblogs-test.sql"
 fi
 
