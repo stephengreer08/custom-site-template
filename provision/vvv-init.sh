@@ -21,15 +21,25 @@ touch ${VVV_PATH_TO_SITE}/log/error.log
 touch ${VVV_PATH_TO_SITE}/log/access.log
 
 # Install and configure the latest stable version of WordPress
-if [[ ! -f "${VVV_PATH_TO_SITE}/public_html/wp-load.php" ]]; then
+if [[ ! -f "${VVV_PATH_TO_SITE}/htdocs/wp-load.php" ]]; then
     echo "Downloading WordPress..."
   noroot wp core download --version="${WP_VERSION}"
 fi
 
-if [[ ! -f "${VVV_PATH_TO_SITE}/public_html/wp-config.php" ]]; then
+if [[ ! -f "${VVV_PATH_TO_SITE}/htdocs/wp-config.php" ]]; then
   echo "Configuring WordPress Stable..."
   noroot wp core config --dbname="${DB_NAME}" --dbuser=wp --dbpass=wp --quiet --extra-php <<PHP
-define( 'WP_DEBUG', true );
+define( 'SUNRISE',true );
+define( 'FS_DEVELOPER_KEY','localdev' );
+
+/*Getty API Credentials*/
+// define( 'GETTY_API_KEY','' );
+// define( 'GETTY_CLIENT_SECRET','' );
+/*WP RestRest cache constants*/
+// Use the content types to specify what types of content the rest cache will actually store/save
+//define( 'WRC_CONTENT_TYPES', array( 'application/json', 'text/xml' ) );
+// secret key for FanSided WP API plugin server to server authentication
+define('FSAPI_SECRET_KEY', 'fslocaldevsecretkey');
 PHP
 fi
 
@@ -47,7 +57,7 @@ if ! $(noroot wp core is-installed); then
   noroot wp core ${INSTALL_COMMAND} --url="${DOMAIN}" --quiet --title="${SITE_TITLE}" --admin_name=admin --admin_email="admin@local.test" --admin_password="password"
 else
   echo "Updating WordPress Stable..."
-  cd ${VVV_PATH_TO_SITE}/public_html
+  cd ${VVV_PATH_TO_SITE}/htdocs
   noroot wp core update --version="${WP_VERSION}"
 fi
 
